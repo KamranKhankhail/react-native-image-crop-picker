@@ -363,7 +363,7 @@ RCT_EXPORT_METHOD(openCropper:(NSDictionary *)options
         imageCropVC.cropMode = RSKImageCropModeCustom;
     }
     imageCropVC.toolbarTitle = [[self options] objectForKey:@"cropperToolbarTitle"];
-    imageCropVC.avoidEmptySpaceAroundImage = YES;
+    // imageCropVC.avoidEmptySpaceAroundImage = YES;
     imageCropVC.dataSource = self;
     imageCropVC.delegate = self;
     NSString *cropperCancelText = [self.options objectForKey:@"cropperCancelText"];
@@ -833,10 +833,10 @@ RCT_EXPORT_METHOD(openCropper:(NSDictionary *)options
 
     // we have correct rect, but not correct dimensions
     // so resize image
-    CGSize resizedImageSize = CGSizeMake([[[self options] objectForKey:@"width"] intValue], [[[self options] objectForKey:@"height"] intValue]);
-    UIImage *resizedImage = [croppedImage resizedImageToFitInSize:resizedImageSize scaleIfSmaller:YES];
-    ImageResult *imageResult = [self.compression compressImage:resizedImage withOptions:self.options];
-
+//    CGSize resizedImageSize = CGSizeMake([[[self options] objectForKey:@"width"] intValue], [[[self options] objectForKey:@"height"] intValue]);
+//    UIImage *resizedImage = [croppedImage resizedImageToFitInSize:resizedImageSize scaleIfSmaller:YES];
+    ImageResult *imageResult = [self.compression compressImage:croppedImage withOptions:self.options];
+    
     NSString *filePath = [self persistFile:imageResult.data];
     if (filePath == nil) {
         [self dismissCropper:controller selectionDone:YES completion:[self waitAnimationEnd:^{
